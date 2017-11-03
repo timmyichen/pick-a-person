@@ -2,6 +2,8 @@
 
 A small app for picking names out of a hat. Built with Node/Express/React/MongoDB.  See live link here: [http://pick-a-person.herokuapp.com](http://pick-a-person.herokuapp.com)
 
+Shoutout to Nathan Dalal's wonderful lightweight [React/Express template](https://github.com/nathandalal/react-express-template).
+
 ## Setup and Installation
 
 Clone this repository and enter it:
