@@ -18,7 +18,20 @@ var config = {
         loader : 'babel-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({ // <-- key to reducing React's size
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      comments: false,
+      minimize: false
+    }),
+    new webpack.optimize.AggressiveMergingPlugin()//Merge chunks 
+  ],
 }
 
 module.exports = config;
