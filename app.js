@@ -16,6 +16,12 @@ MongoClient.connect(config.keys.mongoURI, (err, db) => {
   
   app.use('/api', apiRoutes);
   
+  app.get('*.js', function (req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    next();
+  });
+  
   app.engine('njk', engines.nunjucks);
   app.set('view engine', 'njk');
   app.set('views', __dirname + '/views');

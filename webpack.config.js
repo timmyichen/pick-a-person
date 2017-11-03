@@ -1,5 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var CompressionPlugin = require('compression-webpack-plugin');
+
 
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'client');
@@ -28,9 +31,16 @@ var config = {
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       comments: false,
-      minimize: false
+      minimize: true
     }),
-    new webpack.optimize.AggressiveMergingPlugin()//Merge chunks 
+    new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
   ],
 }
 
