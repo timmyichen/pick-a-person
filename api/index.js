@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 function sanitize(str) {
-    return str.replace(/<(\/)*script>/gi,'[nice try]').replace(/<|>/gi, '');
+  return str.replace(/<(\/)*script>/gi,'[nice try]').replace(/<|>/gi, '');
 }
 
 function pickWinner(data) {
@@ -24,7 +24,10 @@ function pickWinner(data) {
 
 router.post('/new', (req, res) => {
   let { people, title } = req.body;
-  people = sanitize(people);
+  people = people.map(entry => {
+    entry.name = sanitize(entry.name);
+    return entry;
+  });
   title = sanitize(title);
   const { db } = req.app.locals;
   db.collection('results').find().sort({id:-1}).limit(1).toArray((err, docs) => {
